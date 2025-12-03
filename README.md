@@ -1,9 +1,8 @@
 ```
-   ___                       ___       __  __           
-  / _ )___ ____  _______    / _ \__ __/ /_/ /  ___  ___ 
- / _  / _ `/ _ \/ __/ _ \  / ___/ // / __/ _ \/ _ \/ _ \
-/____/\_,_/_//_/\__/\___/ /_/   \_, /\__/_//_/\___/_//_/
-                               /___/                    
+   ___                       ___  _ __          
+  / _ )___ ____  _______    / _ \(_) /____  ___ 
+ / _  / _ `/ _ \/ __/ _ \  / ___/ / __/ _ \/ _ \
+/____/\_,_/_//_/\__/\___/ /_/  /_/\__/\___/_//_/
 ```
 # Do que se trata?
 Esse é um reporitório de um projeto de um banco que, até o momento, permite realizar saques, depósitos e extrato, mas há mais recursos a serem adicionados, 
