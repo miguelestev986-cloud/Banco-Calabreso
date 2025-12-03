@@ -1,4 +1,3 @@
-import datetime
 print(' === Bem vindo ao Banco Calabreso ===\n ')
 
 def validar_usuario():
