@@ -1,5 +1,4 @@
 from datetime import datetime as dt, timedelta as tdelta, date
-
 from .users import agencias
 from .constants import LIMITE_SAQUES, LIMITE_POR_SAQUE
 
@@ -26,15 +25,15 @@ def validar_senha(agencia, conta):
             print('\nSenha incorreta, tente novamente.')
 
 def atualizar_extrato(agencia, conta, operacao, valor):
-    agencias[agencia][conta]["extrato"].append(f'Data: {dt.now().replace(microsecond=0)}\nOperação: {operacao}\nValor: {agencias[agencia][conta]["moeda"]} {valor}')
+    agencias[agencia][conta]["extrato"].append(f'Data e Hora: {dt.now().replace(microsecond=0)}\nOperação: {operacao}\nValor: {agencias[agencia][conta]["moeda"]} {valor}')
 
 def mostrar_extrato(agencia, conta):
-    print('\n' + ' EXTRATO '.center(50, '~'))
-    print('-' * 50 + '\n')
+    print('\n' + ' EXTRATO '.center(50, '~') + '\n')
+    print('-' * 50)
     for item in agencias[agencia][conta]["extrato"]:
-        print(item.center(50, ' '))
+        print(item)
         print('-' * 50)
-    print('n' + ' FIM EXTRATO '.center(50, '~'))
+    print('\n' + ' FIM DO EXTRATO '.center(50, '~'))
     print(f'\nSaldo atual da conta: {agencias[agencia][conta]["moeda"]}{agencias[agencia][conta]["saldo"]}')
 
 def depositar(agencia, conta):
@@ -48,24 +47,24 @@ def depositar(agencia, conta):
         else:
             return 'Insira um valor positivo para depósito. Tente novamente.'
     except ValueError:
-        return 'Por favor digite apenas números e pontos para valores com casas decimais.'
+        return '\nPor favor digite apenas números e pontos para valores com casas decimais.'
 
-def sacar(agencia, conta, saques):
-    if (saques == LIMITE_SAQUES):
-        print(f'O número máximo de saques diários(3) foi atingido, por favor espere até {date.today() + tdelta(days=1)} ou realize outra operação.')
+def sacar(agencia, conta, nsaques):
+    if (nsaques == LIMITE_SAQUES):
+        return(f'\nO número máximo de saques diários(3) foi atingido, por favor espere até {date.today() + tdelta(days=1)} ou realize outra operação.'), nsaques
     else:
         try:
             print(f'\nSeu saldo atual é de {agencias[agencia][conta]["moeda"]} {agencias[agencia][conta]["saldo"]}')
             saque = float(input('Digite o valor do saque: R$'))
             if (saque > LIMITE_POR_SAQUE):
-                return '\nSaque excede o limite por saque(R$500,00), por favor tente novamente.'
+                return('\nSaque excede o limite por saque(R$500,00), por favor tente novamente.'), nsaques
             elif saque > agencias[agencia][conta]["saldo"]:
-                return '\nSaldo insuficiente, tente novamente.'
+                return('\nSaldo insuficiente, tente novamente.'), nsaques
             else:
-                saques += 1
+                nsaques += 1
                 agencias[agencia][conta]["saldo"] -= saque
                 atualizar_extrato(agencia, conta, 'Saque', saque)
-                return '\nSaque realizado com sucesso!'
+                return '\nSaque realizado com sucesso!', nsaques
 
         except ValueError:
-            return 'Por favor digite apenas números e pontos para valores com casas decimais.'
+            return '\nPor favor digite apenas números e pontos para valores com casas decimais.', nsaques

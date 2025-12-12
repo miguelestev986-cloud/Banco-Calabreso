@@ -1,5 +1,5 @@
 from utils.functions import *
-# Dentro de function há a importação do dicionário agencias, que contém os dados dos usuários
+# Dentro de function há a importação do dicionário agencias, que contém os dados dos usuários, e da bibliotecas datetime
 
 titulo = ' Bem vindo ao Banco Piton '
 slogan = 'Seu banco de confiança!'
@@ -15,7 +15,8 @@ Q = Sair
 '''
 agencia, conta = validar_conta()
 cliente = agencias[agencia][conta]
-saques = 0
+nsaques = 0
+# Se eu deixasse a variável na função sacar, ela reiniciaria a cada chamada da função, então compartilhei entre main e functions
 
 if (validar_senha(agencia,conta)):
     while True:
@@ -23,11 +24,13 @@ if (validar_senha(agencia,conta)):
         escolha = input('O que deseja fazer? ')
 
         if (escolha.upper() == 'D'):
-            print(depositar(agencia, conta))
+            mensagem_d = depositar(agencia, conta)
+            print(mensagem_d)
             
         elif (escolha.upper() == 'S'):
-            print(sacar(agencia, conta, saques))
-
+            mensagems, nsaques = sacar(agencia, conta, nsaques)
+            print(mensagems)
+        
         elif (escolha.upper() == 'E'):
             mostrar_extrato(agencia, conta)
         
