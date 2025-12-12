@@ -18,7 +18,7 @@ como: Banco de dados, Interface, Segurança, etc.
         style="padding-center: 10px;" 
         src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
 
-# Como Rodar a Aplicação
+# Documentação (INCOMPLETA)
 
 Dentro da pasta principal (onde ficam as pastas doc, src, tests e utils) rode o comando abaixo para iniciar o projeto:
 
