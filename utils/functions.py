@@ -14,7 +14,7 @@ def validar_conta():
                 else:
                     print('\nConta inválida, tente novamente.')
         else:
-            print('\nAgência inválida.\nNão possui agência? Consulte nossa agência mais próxima em: https://bancopiton.com.br/agencias')
+            print('\nAgência inválida.\nNão possui agência? Consulte nossa agência mais próxima em: https://bancopiton.com.br/agencias\n')
 
 def validar_senha(agencia, conta):
     while True: 
@@ -26,13 +26,15 @@ def validar_senha(agencia, conta):
             print('\nSenha incorreta, tente novamente.')
 
 def atualizar_extrato(agencia, conta, operacao, valor):
-    agencias[agencia][conta]["extrato"].append(f'{dt.now().replace(microsecond=0)} : {operacao} {agencias[agencia][conta]["moeda"]} {valor}')
+    agencias[agencia][conta]["extrato"].append(f'Data: {dt.now().replace(microsecond=0)}\nOperação: {operacao}\nValor: {agencias[agencia][conta]["moeda"]} {valor}')
 
 def mostrar_extrato(agencia, conta):
-    print(' EXTRATO '.center(50, '~'))
+    print('\n' + ' EXTRATO '.center(50, '~'))
+    print('-' * 50 + '\n')
     for item in agencias[agencia][conta]["extrato"]:
         print(item.center(50, ' '))
-    print(' FIM EXTRATO '.center(50, '~'))
+        print('-' * 50)
+    print('n' + ' FIM EXTRATO '.center(50, '~'))
     print(f'\nSaldo atual da conta: {agencias[agencia][conta]["moeda"]}{agencias[agencia][conta]["saldo"]}')
 
 def depositar(agencia, conta):
@@ -41,15 +43,14 @@ def depositar(agencia, conta):
         deposito = float(input('Digite o valor do depósito: R$'))
         if (deposito > 0):
             agencias[agencia][conta]["saldo"] += deposito
-            atualizar_extrato(agencia, conta, 'Depósito:', deposito)
+            atualizar_extrato(agencia, conta, 'Depósito', deposito)
             return '\nDepósito realizado com sucesso!'
         else:
             return 'Insira um valor positivo para depósito. Tente novamente.'
     except ValueError:
         return 'Por favor digite apenas números e pontos para valores com casas decimais.'
 
-def sacar(agencia, conta):
-    saques = 0
+def sacar(agencia, conta, saques):
     if (saques == LIMITE_SAQUES):
         print(f'O número máximo de saques diários(3) foi atingido, por favor espere até {date.today() + tdelta(days=1)} ou realize outra operação.')
     else:
@@ -63,8 +64,8 @@ def sacar(agencia, conta):
             else:
                 saques += 1
                 agencias[agencia][conta]["saldo"] -= saque
-                atualizar_extrato(agencia, conta, 'Saque:', saque)
-                return '\nSaque realizado com sucesso!\n'
+                atualizar_extrato(agencia, conta, 'Saque', saque)
+                return '\nSaque realizado com sucesso!'
 
         except ValueError:
             return 'Por favor digite apenas números e pontos para valores com casas decimais.'

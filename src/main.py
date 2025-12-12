@@ -15,6 +15,7 @@ Q = Sair
 '''
 agencia, conta = validar_conta()
 cliente = agencias[agencia][conta]
+saques = 0
 
 if (validar_senha(agencia,conta)):
     while True:
@@ -25,7 +26,7 @@ if (validar_senha(agencia,conta)):
             print(depositar(agencia, conta))
             
         elif (escolha.upper() == 'S'):
-            print(sacar(agencia, conta))
+            print(sacar(agencia, conta, saques))
 
         elif (escolha.upper() == 'E'):
             mostrar_extrato(agencia, conta)
